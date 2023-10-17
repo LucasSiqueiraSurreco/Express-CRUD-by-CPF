@@ -56,6 +56,13 @@ app.get("/account", verifyIfExistisAccountCPF, (req, res) => {
   res.json(customer);
 });
 
+app.get("/balance", verifyIfExistisAccountCPF, (req, res) => {
+  const { customer } = req;
+  const balance = getBalance(customer.statement);
+
+  return res.json(balance);
+});
+
 app.post("/account", (req, res) => {
   const { cpf, name } = req.body;
   const customerAlredyExists = customers.some(
